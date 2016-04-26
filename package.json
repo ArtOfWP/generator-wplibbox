@@ -1,0 +1,26 @@
+{
+  "name": "wplibbox-maker",
+  "version": "1.0.0",
+  "description": "Helps create an adapted wplib box setup",
+  "files": [
+    "app",
+    "router"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArtOfWP/wplibbox-maker.git"
+  },
+  "keywords": [
+    "wplib",
+    "wplibbox",
+    "vagrant",
+    "composer",
+    "artofwp"
+  ],
+  "author": "Andreas Nurbo, Art Of WP",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ArtOfWP/wplibbox-maker/issues"
+  },
+  "homepage": "https://github.com/ArtOfWP/wplibbox-maker#readme"
+}
