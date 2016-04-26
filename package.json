@@ -1,11 +1,11 @@
 {
-  "name": "wplibbox-maker",
+  "name": "generator-wplibbox",
   "version": "1.0.0",
   "description": "Helps create an adapted wplib box setup",
   "files": [
-    "app",
-    "router"
+    "generators/app"
   ],
+  "main": "generators/app/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ArtOfWP/wplibbox-maker.git"
@@ -25,5 +25,8 @@
   "homepage": "https://github.com/ArtOfWP/wplibbox-maker#readme",
   "dependencies": {
     "yeoman-generator": "^0.22.6"
+  },
+  "devDependencies": {
+    "jasmine": "^2.4.1"
   }
 }
