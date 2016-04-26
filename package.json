@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/ArtOfWP/wplibbox-maker/issues"
   },
-  "homepage": "https://github.com/ArtOfWP/wplibbox-maker#readme"
+  "homepage": "https://github.com/ArtOfWP/wplibbox-maker#readme",
+  "dependencies": {
+    "yeoman-generator": "^0.22.6"
+  }
 }
