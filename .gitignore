@@ -1,5 +1,7 @@
 #PHPStorm
 .idea/
+tmp/
+
 # Logs
 logs
 *.log

@@ -1,0 +1,52 @@
+{
+  "name": "<%= box.name %>",
+  "description": "<%= box.description %>",
+  "license": "GPL-2.0+",
+  "type": "project",
+  "authors": [
+    {
+      "name": "<%= author.name %>",
+      "email": "<%= author.email %>",
+      "homepage": "<%= author.url %>",
+      "role": "<%= author.role %>"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://wpackagist.org"
+    }
+  ],
+  "require": {
+    "composer/installers": "dev-master",
+    "wpackagist-theme/twentysixteen": "*",
+    "johnpbloch/wordpress": "4.5",
+    "wpackagist-plugin/wp-redis": "0.2.2",
+    "wpackagist-plugin/query-monitor": "2.10.0",
+    "wpackagist-plugin/helpful-information": "1.0.2"
+  },
+  "extra": {
+    "wordpress-install-dir": "www/wp",
+    "installer-paths": {
+      "www/content/mu-plugins/{$name}": [
+        "type:wordpress-library",
+        "type:wordpress-muplugin",
+        "wpackagist-plugin/wp-redis"
+      ],
+      "www/content/plugins/{$name}": [
+        "type:wordpress-plugin"
+      ],
+      "www/content/themes/{$name}": [
+        "type:wordpress-theme"
+      ]
+    }
+  },
+  "config": {
+    "vendor-dir": "www/vendor",
+    "secure-http": false
+  },
+  "scripts": {
+    "post-install-cmd": "php scripts/after-composer.php",
+    "post-update-cmd": "php scripts/after-composer.php"
+  }
+}

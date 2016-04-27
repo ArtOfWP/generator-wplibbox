@@ -24,9 +24,17 @@
   },
   "homepage": "https://github.com/ArtOfWP/wplibbox-maker#readme",
   "dependencies": {
+    "lodash": "^4.11.1",
     "yeoman-generator": "^0.22.6"
   },
   "devDependencies": {
-    "jasmine": "^2.4.1"
+    "gulp": "^3.9.1",
+    "gulp-jasmine": "^2.3.0",
+    "gulp-watch": "^4.3.5",
+    "jasmine": "^2.4.1",
+    "jasmine-core": "^2.4.1",
+    "path-exists": "^2.1.0",
+    "yeoman-assert": "^2.2.1",
+    "yeoman-test": "^1.1.0"
   }
 }
