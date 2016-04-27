@@ -4,8 +4,11 @@ var nfs = require('fs');
 module.exports = generators.Base.extend({
   constructor: function () {
     generators.Base.apply(this, arguments);
-    this.argument('appname', {type: String, required: true});
-//    this.options = {};
+    this.argument('appname', {type: String,required:false});
+    if (this.appname === undefined) {
+      this.log('Note: You need to call `yo wplibbox your-box-name`');
+      process.exit(1);
+    }
   },
   /**
    * author.email
