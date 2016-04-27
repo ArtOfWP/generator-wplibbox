@@ -1,5 +1,5 @@
 {
-  "name": "<%= box.name %>",
+  "name": "<%= box.organisation %>/<%= box.name %>",
   "description": "<%= box.description %>",
   "license": "GPL-2.0+",
   "type": "project",
@@ -7,9 +7,9 @@
     {
       "name": "<%= author.name %>",
       "email": "<%= author.email %>",
-      "homepage": "<%= author.url %>",
-      "role": "<%= author.role %>"
-    }
+<% if (author.url) { %>"homepage": "<%= author.url %>",<% } %>
+<% if (author.role) { %>"role": "<%= author.role %>"<% } %>
+  }
   ],
   "repositories": [
     {
@@ -18,27 +18,21 @@
     }
   ],
   "require": {
-    "composer/installers": "dev-master",
-    "wpackagist-theme/twentysixteen": "*",
-    "johnpbloch/wordpress": "4.5",
-    "wpackagist-plugin/wp-redis": "0.2.2",
-    "wpackagist-plugin/query-monitor": "2.10.0",
-    "wpackagist-plugin/helpful-information": "1.0.2"
+    "composer/installers": "1.*",
+    "wikimedia/composer-merge-plugin": "dev-master"
   },
   "extra": {
-    "wordpress-install-dir": "www/wp",
-    "installer-paths": {
-      "www/content/mu-plugins/{$name}": [
-        "type:wordpress-library",
-        "type:wordpress-muplugin",
-        "wpackagist-plugin/wp-redis"
+    "merge-plugin": {
+      "require": [
+        "composer-extensions/wordpress.json"
+        <% if(wplib.enable) { %>
+        ,"composer-extensions/wplib.json"
+        <% } %>
       ],
-      "www/content/plugins/{$name}": [
-        "type:wordpress-plugin"
-      ],
-      "www/content/themes/{$name}": [
-        "type:wordpress-theme"
-      ]
+      "recurse": true,
+      "replace": false,
+      "merge-dev": true,
+      "merge-extra": true
     }
   },
   "config": {

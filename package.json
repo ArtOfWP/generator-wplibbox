@@ -25,10 +25,13 @@
   "homepage": "https://github.com/ArtOfWP/wplibbox-maker#readme",
   "dependencies": {
     "lodash": "^4.11.1",
+    "merge": "^1.2.0",
     "yeoman-generator": "^0.22.6"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-filter": "^4.0.0",
+    "gulp-beautify": "^2.0.0",
     "gulp-jasmine": "^2.3.0",
     "gulp-watch": "^4.3.5",
     "jasmine": "^2.4.1",
