@@ -6,6 +6,8 @@ var beautify = require('gulp-beautify');
 var merge = require('merge');
 var compose = require('./prompts/composer-description');
 var wplib = require('./prompts/wplib');
+var path_exists = require('path-exists');
+
 module.exports = generators.Base.extend({
   constructor: function () {
     generators.Base.apply(this, arguments);
@@ -32,6 +34,7 @@ module.exports = generators.Base.extend({
   makeBox: function () {
     var destDir = this.destinationPath(this.appname);
     nfs.mkdirSync(destDir);
+    this.data.db_name = this.data.hostname.replace(/-\./i,'_');
     this.data.appname = this.appname;
     var tsFilter = filter(['**/*.json'], { restore: true });
 
@@ -45,5 +48,15 @@ module.exports = generators.Base.extend({
       this.destinationPath(this.appname),
       this.data
     );
+    this.fs.copyTpl(
+      this.templatePath('www/.hosts'),
+      this.destinationPath(this.appname+'/www/.hosts'),
+      this.data);
+    this.fs.copyTpl(
+      this.templatePath('shared'),
+      this.destinationPath(this.appname+'/www/' + this.data.hostname.replace(/\./i,'-')),
+      this.data);
+    //nfs.mkdirSync(destDir + '/www/' + this.data.hostname.replace(/\./i,'-'));
+
   }
 });
