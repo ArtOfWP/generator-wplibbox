@@ -4,7 +4,7 @@
 </head>
 <body>
 <?php
-$hosts = file_get_contents('.hosts');
+$hosts = file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR . '.hosts');
 $hosts = explode("\n", $hosts);
 echo '<ul>';
 foreach ($hosts as $host) {
