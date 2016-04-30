@@ -24,3 +24,16 @@ if [ ! -f "${cache_file}" ]; then
 else
     sudo ln -sf "${cache_file}" "${cache_link}"
 fi
+echo "Creating sites"
+while read -r host
+do
+  host=${host/./-}
+  mkdir -p "/var/www/${host}/content"
+  mkdir -p "/var/www/${host}/content/plugins"
+  mkdir -p "/var/www/${host}/content/themes"
+  mkdir -p "/var/www/${host}/content/mu-plugins"
+  host=${host/-/_}
+  mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${host}"
+  mysql -u root -e "GRANT ALL PRIVILEGES ON ${host}.* TO wordpress@localhost IDENTIFIED BY 'wordpress';"
+  mysql -u root ${host} < /vagrant/sql/default.sql
+done < '/var/www/.hosts'

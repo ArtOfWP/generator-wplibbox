@@ -1,6 +1,5 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
 #
 # Welcome to WPLib Box!
 #
@@ -260,11 +259,10 @@
 #
 #           - https://github.com/wplib/wplib-box/blob/master/FAQ.md#troubleshooting
 #
-
+vagrant_dir = File.expand_path(File.dirname(__FILE__))
 Vagrant.configure(2) do |config|
-
     config.vm.box = "wplib/wplib"
-    config.vm.hostname = "<%= hostname %>"
+    config.vm.hostname = "wplib.box"
 
     File.write('IP', "10.#{rand(254)}.#{rand(254)}.#{rand(254)}") if not File.exists?('IP')
     config.vm.network 'private_network', ip: IO.readlines('IP')[0].strip
@@ -276,6 +274,20 @@ Vagrant.configure(2) do |config|
 
     config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
     config.vm.provision "shell", path: "scripts/provision.sh"
+    # Local Machine Hosts
+    #
+    # If the Vagrant plugin hostsupdater (https://github.com/cogitatio/vagrant-hostsupdater) is
+    # installed, the following will automatically configure your local machine's hosts file to
+    # be aware of the domains specified below. Watch the provisioning script as you may need to
+    # enter a password for Vagrant to access your hosts file.
+    # Add the domains you want to use to the www/.hosts file. One per line.
+    if defined?(VagrantPlugins::HostsUpdater)
+      # Parse the .hosts file for domains.
+      hosts = IO.readlines(File.join(vagrant_dir,"www/.hosts")).map(&:chomp).flatten.uniq # Remove duplicate entries
 
+      # Pass the found host names to the hostsupdater plugin so it can perform magic.
+      config.hostsupdater.aliases = hosts
+      config.hostsupdater.remove_on_suspend = true
+    end
 end
 
