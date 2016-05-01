@@ -261,7 +261,8 @@
 #
 vagrant_dir = File.expand_path(File.dirname(__FILE__))
 Vagrant.configure(2) do |config|
-    system('scripts/before-vagrant.sh')
+
+    File.write('IP', "10.#{rand(254)}.#{rand(254)}.#{rand(254)}") if not File.exists?('IP')
 
     config.vm.box = "wplib/wplib"
     config.vm.hostname = "wplib.box"

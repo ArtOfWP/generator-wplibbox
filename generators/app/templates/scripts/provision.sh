@@ -21,19 +21,24 @@ if [ ! -f "${cache_file}" ]; then
     echo "      composer install"
     echo "      vagrant reload --provision"
     echo " "
-else
-    sudo ln -sf "${cache_file}" "${cache_link}"
 fi
+
 echo "Creating sites"
 while read -r host
 do
-  host=${host/./-}
-  mkdir -p "/var/www/${host}/content"
-  mkdir -p "/var/www/${host}/content/plugins"
-  mkdir -p "/var/www/${host}/content/themes"
-  mkdir -p "/var/www/${host}/content/mu-plugins"
-  host=${host/-/_}
-  mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${host}"
-  mysql -u root -e "GRANT ALL PRIVILEGES ON ${host}.* TO wordpress@localhost IDENTIFIED BY 'wordpress';"
-  mysql -u root ${host} < /vagrant/sql/default.sql
+  if [ ! -z "$host" ]; then
+    host=${host/./-}
+    echo "Creating ${host} folders"
+    mkdir -p "/var/www/${host}/content"
+    mkdir -p "/var/www/${host}/content/plugins"
+    mkdir -p "/var/www/${host}/content/themes"
+    mkdir -p "/var/www/${host}/content/mu-plugins"
+    sudo ln -sf "/var/www/wp" "/var/www/${host}"
+    sudo ln -sf "${cache_file}" "/var/www/${host}/content/"
+    host=${host/-/_}
+    echo "Creating ${host} database"
+    mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${host}"
+    mysql -u root -e "GRANT ALL PRIVILEGES ON ${host}.* TO wordpress@localhost IDENTIFIED BY 'wordpress';"
+    mysql -u root ${host} < /vagrant/sql/default.sql
+  fi
 done < '/var/www/.hosts'

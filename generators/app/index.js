@@ -57,6 +57,5 @@ module.exports = generators.Base.extend({
       this.destinationPath(this.appname+'/www/' + this.data.hostname.replace(/\./i,'-')),
       this.data);
     //nfs.mkdirSync(destDir + '/www/' + this.data.hostname.replace(/\./i,'-'));
-
   }
 });
