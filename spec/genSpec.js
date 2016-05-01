@@ -45,7 +45,7 @@ describe('WpLibBox', function () {
     it('creates wp-config.php file with correct data', function(){
       var file = fs.readFileSync(tmpdir + '/test-site/www/test-site-dev/wp-config.php');
       expect(file).toContain('$_SERVER[\'HTTP_HOST\'] = \'test-site.dev\';');
-      expect(file).toContain('define( \'DB_NAME\', \'test-site-dev\' )');
+      expect(file).toContain('define( \'DB_NAME\', \'test_site_dev\' )');
     });
   });
 });

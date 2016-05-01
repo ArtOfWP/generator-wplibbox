@@ -34,7 +34,7 @@ module.exports = generators.Base.extend({
   makeBox: function () {
     var destDir = this.destinationPath(this.appname);
     nfs.mkdirSync(destDir);
-    this.data.db_name = this.data.hostname.replace(/-\./i,'_');
+    this.data.db_name = this.data.hostname.replace(/[-\.]/g,'_');
     this.data.appname = this.appname;
     var tsFilter = filter(['**/*.json'], { restore: true });
 
