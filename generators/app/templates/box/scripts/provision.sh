@@ -27,7 +27,7 @@ echo "Creating sites"
 while read -r host
 do
   if [ ! -z "$host" ]; then
-    host=${host/./-}
+    host=${host//./-}
     echo "Creating ${host} folders"
     mkdir -p "/var/www/${host}/content"
     mkdir -p "/var/www/${host}/content/plugins"
@@ -35,7 +35,7 @@ do
     mkdir -p "/var/www/${host}/content/mu-plugins"
     sudo ln -sf "/var/www/wp" "/var/www/${host}"
     sudo ln -sf "${cache_file}" "/var/www/${host}/content/"
-    host=${host/-/_}
+    host=${host//-/_}
     echo "Creating ${host} database"
     mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${host}"
     mysql -u root -e "GRANT ALL PRIVILEGES ON ${host}.* TO wordpress@localhost IDENTIFIED BY 'wordpress';"
