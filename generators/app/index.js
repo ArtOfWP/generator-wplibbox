@@ -1,4 +1,3 @@
-var _ = require("lodash");
 var generators = require('yeoman-generator');
 var nfs = require('fs');
 var filter = require('gulp-filter');
@@ -6,12 +5,11 @@ var beautify = require('gulp-beautify');
 var merge = require('merge');
 var compose = require('./prompts/composer-description');
 var wplib = require('./prompts/wplib');
-var path_exists = require('path-exists');
 
 module.exports = generators.Base.extend({
   constructor: function () {
     generators.Base.apply(this, arguments);
-    this.argument('appname', {type: String,required:false});
+    this.argument('appname', {type: String, required: false});
     this.data = {};
     if (this.appname === undefined) {
       this.log('Note: You need to call `yo wplibbox your-box-name`');
@@ -21,22 +19,22 @@ module.exports = generators.Base.extend({
   prompting: function () {
     this.log('Configure your box setup');
     var done = this.async();
-    compose(this, function(answers) {
-      "use strict";
+    compose(this, function (answers) {
+      'use strict';
       this.data = merge(this.data, answers);
       wplib(this, function (answers) {
-        "use strict";
+        'use strict';
         this.data = merge(this.data, answers);
         done();
-      }.bind(this))
+      }.bind(this));
     }.bind(this));
   },
   makeBox: function () {
     var destDir = this.destinationPath(this.appname);
     nfs.mkdirSync(destDir);
-    this.data.db_name = this.data.hostname.replace(/[-\.]/g,'_');
+    this.data.db_name = this.data.hostname.replace(/[-\.]/g, '_');
     this.data.appname = this.appname;
-    var tsFilter = filter(['**/*.json'], { restore: true });
+    var tsFilter = filter(['**/*.json'], {restore: true});
 
     this.registerTransformStream(tsFilter);
     this.registerTransformStream(beautify({
@@ -50,12 +48,11 @@ module.exports = generators.Base.extend({
     );
     this.fs.copyTpl(
       this.templatePath('www/.hosts'),
-      this.destinationPath(this.appname+'/www/.hosts'),
+      this.destinationPath(this.appname + '/www/.hosts'),
       this.data);
     this.fs.copyTpl(
       this.templatePath('shared'),
-      this.destinationPath(this.appname+'/www/' + this.data.hostname.replace(/\./i,'-')),
+      this.destinationPath(this.appname + '/www/' + this.data.hostname.replace(/\./g, '-')),
       this.data);
-    //nfs.mkdirSync(destDir + '/www/' + this.data.hostname.replace(/\./i,'-'));
   }
 });

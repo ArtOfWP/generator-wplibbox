@@ -6,10 +6,7 @@
     "generators/app"
   ],
   "main": "generators/app/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ArtOfWP/wplibbox-maker.git"
-  },
+  "repository": "ArtOfWP/generator-wplibbox",
   "keywords": [
     "wplib",
     "wplibbox",
@@ -24,20 +21,41 @@
   },
   "homepage": "https://github.com/ArtOfWP/wplibbox-maker#readme",
   "dependencies": {
+    "chalk": "^1.1.3",
     "lodash": "^4.11.1",
     "merge": "^1.2.0",
-    "yeoman-generator": "^0.22.6"
+    "yeoman-generator": "^0.22.6",
+    "yosay": "^1.1.1"
   },
   "devDependencies": {
+    "eslint": "^2.9.0",
+    "eslint-config-xo-space": "^0.13.0",
     "gulp": "^3.9.1",
-    "gulp-filter": "^4.0.0",
     "gulp-beautify": "^2.0.0",
+    "gulp-coveralls": "^0.1.4",
+    "gulp-eslint": "^2.0.0",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-istanbul": "^0.10.4",
     "gulp-jasmine": "^2.3.0",
+    "gulp-line-ending-corrector": "^1.0.1",
+    "gulp-nsp": "^2.4.0",
+    "gulp-plumber": "^1.1.0",
     "gulp-watch": "^4.3.5",
     "jasmine": "^2.4.1",
     "jasmine-core": "^2.4.1",
     "path-exists": "^2.1.0",
     "yeoman-assert": "^2.2.1",
     "yeoman-test": "^1.1.0"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "mocha": true
+    }
+  },
+  "scripts": {
+    "prepublish": "gulp prepublish",
+    "test": "gulp"
   }
 }
