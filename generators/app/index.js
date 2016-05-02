@@ -3,8 +3,8 @@ var nfs = require('fs');
 var filter = require('gulp-filter');
 var beautify = require('gulp-beautify');
 var merge = require('merge');
-var compose = require('./prompts/composer-description');
-var wplib = require('./prompts/wplib');
+var compose = require('../prompts/box-composer-description');
+var wplib = require('../prompts/wplib');
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -42,14 +42,15 @@ module.exports = generators.Base.extend({
     }));
     this.registerTransformStream(tsFilter.restore);
     this.fs.copyTpl(
-      this.templatePath('**/*'),
+      this.templatePath('box/**/*'),
       this.destinationPath(this.appname),
       this.data
     );
     this.fs.copyTpl(
-      this.templatePath('www/.hosts'),
+      this.templatePath('box/www/.hosts'),
       this.destinationPath(this.appname + '/www/.hosts'),
       this.data);
+    this.sourceRoot(this.sourceRoot() + '/../../templates');
     this.fs.copyTpl(
       this.templatePath('shared'),
       this.destinationPath(this.appname + '/www/' + this.data.hostname.replace(/\./g, '-')),

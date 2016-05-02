@@ -4,9 +4,9 @@ var helpers = require('yeoman-test');
 var path = require('path');
 var pathExists = require('path-exists');
 var fs = require('fs');
-var tmpdir = path.join(process.cwd(), 'tmp');
 
-describe('WpLibBox', function () {
+describe('WpLibBox Create box', function () {
+  var tmpdir;
   var data = {
     hostname: 'test-site.dev',
     box_name: 'test-site',
@@ -18,7 +18,9 @@ describe('WpLibBox', function () {
   };
   var gen = helpers
     .run(path.join(__dirname, '../generators/app'))
-    .inDir(tmpdir)
+    .inTmpDir(function (tmpdir2) {
+      tmpdir = tmpdir2;
+    })
     .withArguments('test-site')
     .withPrompts(data);
   describe('default', function () {
