@@ -7,6 +7,7 @@ var compose = require('../prompts/box-composer-description');
 var wplib = require('../prompts/wplib');
 
 module.exports = generators.Base.extend({
+  appname: undefined,
   constructor: function () {
     generators.Base.apply(this, arguments);
     this.argument('appname', {type: String, required: false});
@@ -32,6 +33,7 @@ module.exports = generators.Base.extend({
   makeBox: function () {
     var destDir = this.destinationPath(this.appname);
     nfs.mkdirSync(destDir);
+    this.data.site_folder = this.data.hostname.replace(/\./g, '-');
     this.data.db_name = this.data.hostname.replace(/[-\.]/g, '_');
     this.data.appname = this.appname;
     var tsFilter = filter(['**/*.json'], {restore: true});

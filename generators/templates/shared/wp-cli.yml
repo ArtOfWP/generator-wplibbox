@@ -1,0 +1,2 @@
+path: /var/www/<%= site_folder %>/wp/
+url: http://<%= hostname %>/

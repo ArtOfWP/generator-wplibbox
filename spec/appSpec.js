@@ -50,5 +50,10 @@ describe('WpLibBox Create box', function () {
       expect(file).toContain('$_SERVER[\'HTTP_HOST\'] = \'test-site.dev\';');
       expect(file).toContain('define( \'DB_NAME\', \'test_site_dev\' )');
     });
+    it('creates wp-cli.yml file with correct data', function () {
+      var file = fs.readFileSync(tmpdir + '/test-site/www/test-site-dev/wp-cli.yml');
+      expect(file).toContain('path: /var/www/test-site-dev/wp/');
+      expect(file).toContain('url: http://test-site.dev/');
+    });
   });
 });

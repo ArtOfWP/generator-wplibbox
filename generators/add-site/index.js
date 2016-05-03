@@ -28,6 +28,7 @@ module.exports = generators.Base.extend({
   addSite: function () {
     var destDir = this.destinationPath('www/' + this.site_folder);
     nfs.mkdirSync(destDir);
+    this.data.site_folder = this.site_folder;
     this.data.db_name = this.data.site_name.replace(/[-\.]/g, '_');
     this.data.site_name = this.site_name;
     this.data.hostname = this.site_name;
