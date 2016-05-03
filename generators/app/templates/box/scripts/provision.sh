@@ -7,7 +7,7 @@
 # Import default database from /sql/default.sql
 #
 
-mysql -u root wordpress < /vagrant/sql/default.sql
+#mysql -u root wordpress < /vagrant/sql/default.sql
 
 #
 # Symlink the Object Cache Drop-in for Redis, if not already symlinked
@@ -27,18 +27,24 @@ echo "Creating sites"
 while read -r host
 do
   if [ ! -z "$host" ]; then
-    host=${host//./-}
+    host_folder=${host//./-}
     echo "Creating ${host} folders"
-    mkdir -p "/var/www/${host}/content"
-    mkdir -p "/var/www/${host}/content/plugins"
-    mkdir -p "/var/www/${host}/content/themes"
-    mkdir -p "/var/www/${host}/content/mu-plugins"
-    sudo ln -sf "/var/www/wp" "/var/www/${host}"
-    sudo ln -sf "${cache_file}" "/var/www/${host}/content/"
-    host=${host//-/_}
+    mkdir -p "/var/www/${host_folder}/content"
+    mkdir -p "/var/www/${host_folder}/content/plugins"
+    mkdir -p "/var/www/${host_folder}/content/themes"
+    mkdir -p "/var/www/${host_folder}/content/mu-plugins"
+    sudo ln -sf "/var/www/wp" "/var/www/${host_folder}"
+    sudo ln -sf "${cache_file}" "/var/www/${host_folder}/content/object-cache.php"
+    host_db=${host//-/_}
+    host_db=${host_db//./_}
     echo "Creating ${host} database"
-    mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${host}"
-    mysql -u root -e "GRANT ALL PRIVILEGES ON ${host}.* TO wordpress@localhost IDENTIFIED BY 'wordpress';"
-    mysql -u root ${host} < /vagrant/sql/default.sql
+    mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${host_db}"
+    mysql -u root -e "GRANT ALL PRIVILEGES ON ${host_db}.* TO wordpress@localhost IDENTIFIED BY 'wordpress';"
+    mysql -u root ${host_db} < /vagrant/sql/default.sql
+    site_provision_script="/var/www/${host_folder}/site_provision.sh"
+    if [ -f "${site_provision_script}" ]; then
+      chmod +x "${site_provision_script}"
+      source "${site_provision_script}"
+    fi
   fi
 done < '/var/www/.hosts'
