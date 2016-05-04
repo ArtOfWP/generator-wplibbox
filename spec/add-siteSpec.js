@@ -49,5 +49,10 @@ describe('WpLibBox', function () {
       expect(composer.name).toEqual('temp-org/test-site2-dev');
       expect(composer.description).toEqual('Alter this');
     });
+    it('creates wp-config-local.php file with correct data', function () {
+      expect(pathExists.sync(tmpdir + '/www/test-site2.dev/wp-config-local.php')).toBeTruthy();
+      var file = fs.readFileSync(tmpdir + '/www/test-site2.dev/wp-config-local.php');
+      expect(file).toContain('test-site2.dev');
+    });
   });
 });

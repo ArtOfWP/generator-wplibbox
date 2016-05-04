@@ -1,5 +1,5 @@
 <?php
-
+define( 'WP_CACHE_KEY_SALT', '<%= hostname %>' );
 define( 'WP_DEBUG', true );
 
 ini_set('display_errors', 1);
