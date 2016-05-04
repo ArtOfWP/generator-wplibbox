@@ -24,7 +24,7 @@
   "extra": {
     "merge-plugin": {
       "require": [
-        "composer-extensions/wordpress-core.json"
+        "composer-extensions/wordpress.json"
       ],
       "recurse": true,
       "replace": false,
