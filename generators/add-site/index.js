@@ -17,7 +17,7 @@ module.exports = generators.Base.extend({
       this.log.error(chalk.red('You need to call `yo wplibbox:add-site your-domain` in the root of the box folder'));
       process.exit(1);
     }
-    this.site_folder = this.site_name.replace(/[\.]/g, '-');
+    this.site_folder = this.site_name;
     if (pathExists.sync(this.destinationPath('www/' + this.site_folder))) {
       this.log.identical(chalk.red('The site `') + chalk.blue(this.site_name) + chalk.red('` already exist.'));
       process.exit(1);

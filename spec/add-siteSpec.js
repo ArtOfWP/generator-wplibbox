@@ -23,20 +23,20 @@ describe('WpLibBox', function () {
     });
 
     it('creates a site folder', function () {
-      expect(pathExists.sync(tmpdir + '/www/test-site2-dev')).toBeTruthy();
+      expect(pathExists.sync(tmpdir + '/www/test-site2.dev')).toBeTruthy();
     });
     it('creates .hosts file with correct data', function () {
       var file = fs.readFileSync(tmpdir + '/www/.hosts');
       expect(file).toContain('test-site2.dev');
     });
     it('creates wp-config.php file with correct data', function () {
-      var file = fs.readFileSync(tmpdir + '/www/test-site2-dev/wp-config.php');
+      var file = fs.readFileSync(tmpdir + '/www/test-site2.dev/wp-config.php');
       expect(file).toContain('$_SERVER[\'HTTP_HOST\'] = \'test-site2.dev\';');
       expect(file).toContain('define( \'DB_NAME\', \'test_site2_dev\' )');
     });
     it('creates wp-cli.yml file with correct data', function () {
-      var file = fs.readFileSync(tmpdir + '/www/test-site2-dev/wp-cli.yml');
-      expect(file).toContain('path: /var/www/test-site2-dev/wp/');
+      var file = fs.readFileSync(tmpdir + '/www/test-site2.dev/wp-cli.yml');
+      expect(file).toContain('path: /var/www/test-site2.dev/wp/');
       expect(file).toContain('url: http://test-site2.dev/');
     });
   });

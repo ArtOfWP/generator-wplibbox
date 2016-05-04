@@ -31,7 +31,7 @@ describe('WpLibBox Create box', function () {
       expect(pathExists.sync('test-site')).toBeTruthy();
     });
     it('creates a host folder', function () {
-      expect(pathExists.sync('test-site/www/' + data.hostname.replace(/\./, '-'))).toBeTruthy();
+      expect(pathExists.sync('test-site/www/' + data.hostname)).toBeTruthy();
     });
     it('copies required files', function () {
       expect(pathExists.sync('test-site/Vagrantfile')).toBeTruthy();
@@ -46,13 +46,13 @@ describe('WpLibBox Create box', function () {
       expect(file).toContain('test-site.dev');
     });
     it('creates wp-config.php file with correct data', function () {
-      var file = fs.readFileSync(tmpdir + '/test-site/www/test-site-dev/wp-config.php');
+      var file = fs.readFileSync(tmpdir + '/test-site/www/test-site.dev/wp-config.php');
       expect(file).toContain('$_SERVER[\'HTTP_HOST\'] = \'test-site.dev\';');
       expect(file).toContain('define( \'DB_NAME\', \'test_site_dev\' )');
     });
     it('creates wp-cli.yml file with correct data', function () {
-      var file = fs.readFileSync(tmpdir + '/test-site/www/test-site-dev/wp-cli.yml');
-      expect(file).toContain('path: /var/www/test-site-dev/wp/');
+      var file = fs.readFileSync(tmpdir + '/test-site/www/test-site.dev/wp-cli.yml');
+      expect(file).toContain('path: /var/www/test-site.dev/wp/');
       expect(file).toContain('url: http://test-site.dev/');
     });
   });

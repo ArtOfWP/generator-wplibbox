@@ -33,7 +33,7 @@ module.exports = generators.Base.extend({
   makeBox: function () {
     var destDir = this.destinationPath(this.appname);
     nfs.mkdirSync(destDir);
-    this.data.site_folder = this.data.hostname.replace(/\./g, '-');
+    this.data.site_folder = this.data.hostname;
     this.data.db_name = this.data.hostname.replace(/[-\.]/g, '_');
     this.data.appname = this.appname;
     var tsFilter = filter(['**/*.json'], {restore: true});
@@ -55,7 +55,7 @@ module.exports = generators.Base.extend({
     this.sourceRoot(this.sourceRoot() + '/../../templates');
     this.fs.copyTpl(
       this.templatePath('shared'),
-      this.destinationPath(this.appname + '/www/' + this.data.hostname.replace(/\./g, '-')),
+      this.destinationPath(this.appname + '/www/' + this.data.hostname),
       this.data);
   }
 });

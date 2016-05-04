@@ -1,6 +1,5 @@
 <?php
-$site =  str_replace('.','-',$_SERVER['HTTP_HOST']);
-require_once __DIR__ . '/' . $site . '/wp-config.php';
+require_once __DIR__ . '/' . $_SERVER['HTTP_HOST'] . '/wp-config.php';
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
     /* That's all, stop editing! Happy blogging. */
