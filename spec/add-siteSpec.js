@@ -39,5 +39,15 @@ describe('WpLibBox', function () {
       expect(file).toContain('path: /var/www/test-site2.dev/wp/');
       expect(file).toContain('url: http://test-site2.dev/');
     });
+    it('creates composer extensions folder', function () {
+      expect(pathExists.sync(tmpdir + '/www/test-site2.dev/composer-extensions/')).toBeTruthy();
+    });
+    it('creates composer.json file with correct data', function () {
+      expect(pathExists.sync(tmpdir + '/www/test-site2.dev/composer.json')).toBeTruthy();
+      var file = fs.readFileSync(tmpdir + '/www/test-site2.dev/composer.json', 'utf8');
+      var composer = JSON.parse(file);
+      expect(composer.name).toEqual('temp-org/test-site2-dev');
+      expect(composer.description).toEqual('Alter this');
+    });
   });
 });

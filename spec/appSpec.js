@@ -4,11 +4,11 @@ var helpers = require('yeoman-test');
 var path = require('path');
 var pathExists = require('path-exists');
 var fs = require('fs');
-
 describe('WpLibBox Create box', function () {
   var tmpdir;
   var data = {
     hostname: 'test-site.dev',
+    organisation: 'some-org',
     box_name: 'test-site',
     box_description: 'description test-site',
     author_email: 'example@example.org',
@@ -54,6 +54,13 @@ describe('WpLibBox Create box', function () {
       var file = fs.readFileSync(tmpdir + '/test-site/www/test-site.dev/wp-cli.yml');
       expect(file).toContain('path: /var/www/test-site.dev/wp/');
       expect(file).toContain('url: http://test-site.dev/');
+    });
+    it('creates composer.json file with correct data', function () {
+      expect(pathExists.sync('test-site/www/test-site.dev/composer.json')).toBeTruthy();
+      var file = fs.readFileSync(tmpdir + '/test-site/www/test-site.dev/composer.json', 'utf8');
+      var composer = JSON.parse(file);
+      expect(composer.name).toEqual(data.organisation + '/' + data.box_name);
+      expect(composer.description).toEqual(data.box_description);
     });
   });
 });

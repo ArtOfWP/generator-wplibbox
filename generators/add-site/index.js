@@ -28,10 +28,20 @@ module.exports = generators.Base.extend({
   addSite: function () {
     var destDir = this.destinationPath('www/' + this.site_folder);
     nfs.mkdirSync(destDir);
+    nfs.mkdirSync(destDir + '/composer-extensions/');
+    this.data.site_name = this.site_name;
     this.data.site_folder = this.site_folder;
     this.data.db_name = this.data.site_name.replace(/[-\.]/g, '_');
-    this.data.site_name = this.site_name;
     this.data.hostname = this.site_name;
+    this.data.box = {};
+    this.data.author = {};
+    this.data.box.organisation = 'temp-org';
+    this.data.box.name = this.data.site_name.replace(/[\.]/g, '-');
+    this.data.author.name = 'example';
+    this.data.author.email = 'example@example.org';
+    this.data.author.role = false;
+    this.data.author.url = false;
+    this.data.box.description = 'Alter this';
     nfs.appendFileSync(this.destinationPath('www/.hosts'), this.site_name + '\n');
     this.sourceRoot(this.sourceRoot() + '/../../templates');
     this.fs.copyTpl(

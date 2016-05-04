@@ -1,0 +1,11 @@
+{
+  "repositories": [
+    {
+      "type": "git",
+      "url": "http://github.org/wplib/wplib"
+    }
+  ],
+  "require": {
+    "wplib/wplib": "0.12.2"
+  }
+}
