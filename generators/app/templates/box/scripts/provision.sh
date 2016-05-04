@@ -22,16 +22,15 @@ if [ -f "${wp_file}" ]; then
   while read -r host
   do
     if [ ! -z "$host" ]; then
-      host_folder=${host//./-}
       echo "Creating ${host} folders"
-      mkdir -p "/var/www/${host_folder}/content"
-      mkdir -p "/var/www/${host_folder}/content/plugins"
-      mkdir -p "/var/www/${host_folder}/content/themes"
-      mkdir -p "/var/www/${host_folder}/content/mu-plugins"
-      sudo ln -sf "/var/www/wp" "/var/www/${host_folder}"
-      cache_file="/var/www/${host_folder}/content/mu-plugins/wp-redis/object-cache.php"
+      mkdir -p "/var/www/${host}/content"
+      mkdir -p "/var/www/${host}/content/plugins"
+      mkdir -p "/var/www/${host}/content/themes"
+      mkdir -p "/var/www/${host}/content/mu-plugins"
+      sudo ln -sf "/var/www/wp" "/var/www/${host}"
+      cache_file="/var/www/${host}/content/mu-plugins/wp-redis/object-cache.php"
       if [ -f "${cache_file}" ]; then
-        sudo ln -sf "${cache_file}" "/var/www/${host_folder}/content/object-cache.php"
+        sudo ln -sf "${cache_file}" "/var/www/${host}/content/object-cache.php"
       fi
       host_db=${host//-/_}
       host_db=${host_db//./_}
@@ -39,7 +38,7 @@ if [ -f "${wp_file}" ]; then
       mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${host_db}"
       mysql -u root -e "GRANT ALL PRIVILEGES ON ${host_db}.* TO wordpress@localhost IDENTIFIED BY 'wordpress';"
       mysql -u root ${host_db} < /vagrant/sql/default.sql
-      site_provision_script="/var/www/${host_folder}/site_provision.sh"
+      site_provision_script="/var/www/${host}/site_provision.sh"
       if [ -f "${site_provision_script}" ]; then
         chmod +x "${site_provision_script}"
         source "${site_provision_script}"
