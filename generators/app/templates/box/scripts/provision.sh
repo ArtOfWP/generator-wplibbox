@@ -29,7 +29,10 @@ if [ -f "${wp_file}" ]; then
       mkdir -p "/var/www/${host_folder}/content/themes"
       mkdir -p "/var/www/${host_folder}/content/mu-plugins"
       sudo ln -sf "/var/www/wp" "/var/www/${host_folder}"
-      sudo ln -sf "${cache_file}" "/var/www/${host_folder}/content/object-cache.php"
+      cache_file="/var/www/${host_folder}/content/mu-plugins/wp-redis/object-cache.php"
+      if [ -f "${cache_file}" ]; then
+        sudo ln -sf "${cache_file}" "/var/www/${host_folder}/content/object-cache.php"
+      fi
       host_db=${host//-/_}
       host_db=${host_db//./_}
       echo "Creating ${host} database"
