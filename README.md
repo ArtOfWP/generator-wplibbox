@@ -17,3 +17,7 @@ To get all template placeholders run
 ```
 grep -ohRP "(?<=<%= )[a-z.]*(?= %>)" templates/  | sort | uniq
 ```
+
+## Credit
+
+Have used some scripts from [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV/)
