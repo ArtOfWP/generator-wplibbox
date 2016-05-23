@@ -13,10 +13,8 @@ if [ ! -f "${wp_file}" ]; then
     echo "      vagrant reload --provision"
     echo " "
 fi
-
 sudo sed -i -e 's/root \/var\/www;/root \/var\/www\/$http_host;/g' /etc/nginx/sites-available/default
 grep -q -F 'location /content/ {alias /var/www/$http_host/content/;}'  /etc/nginx/global/wordpress.conf || echo 'location /content/ {alias /var/www/$http_host/content/;}' | sudo tee -a  /etc/nginx/global/wordpress.conf
-sudo service nginx restart
 
 #
 # Create all sites
