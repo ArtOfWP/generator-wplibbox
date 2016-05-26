@@ -34,7 +34,7 @@ if [ -f "${wp_file}" ]; then
       if [ -f "${cache_file}" ]; then
         sudo ln -sf "${cache_file}" "/var/www/${host}/content/object-cache.php"
       fi
-      if [ ! -f "/srv/backups/${host_db}.sql"]
+      if [ ! -f "/srv/backups/${host_db}.sql" ]; then
 	      host_db=${host//-/_}
     	  host_db=${host_db//./_}
      	  echo "Creating ${host} database"
