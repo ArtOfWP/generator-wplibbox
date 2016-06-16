@@ -22,7 +22,7 @@ then
 		if [ "" == "$db_exist" ]
 		then
 			printf "mysql -u root $pre_dot < $pre_dot.sql\n"
-			mysql -u root -proot $pre_dot < $pre_dot.sql
+			mysql -u root $pre_dot < $pre_dot.sql
 			printf "  * Import of $pre_dot successful\n"
 		else
 			printf "  * Skipped import of $pre_dot - tables exist\n"

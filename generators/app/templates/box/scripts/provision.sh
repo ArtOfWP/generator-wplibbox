@@ -38,14 +38,14 @@ if [ -f "${wp_file}" ]; then
 	      host_db=${host//-/_}
     	  host_db=${host_db//./_}
      	  echo "Creating ${host} database"
-          mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${host_db}"
-          mysql -u root -e "GRANT ALL PRIVILEGES ON ${host_db}.* TO wordpress@localhost IDENTIFIED BY 'wordpress';"
-          mysql -u root ${host_db} < /vagrant/sql/default.sql
-          site_provision_script="/var/www/${host}/site_provision.sh"
-          if [ -f "${site_provision_script}" ]; then
-            chmod +x "${site_provision_script}"
-            source "${site_provision_script}"
-          fi
+        mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${host_db}"
+        mysql -u root -e "GRANT ALL PRIVILEGES ON ${host_db}.* TO wordpress@localhost IDENTIFIED BY 'wordpress';"
+        mysql -u root ${host_db} < /vagrant/sql/default.sql
+        site_provision_script="/var/www/${host}/site_provision.sh"
+        if [ -f "${site_provision_script}" ]; then
+          chmod +x "${site_provision_script}"
+          source "${site_provision_script}"
+        fi
       fi
     fi
   done < '/var/www/.hosts'
